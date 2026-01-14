@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?><LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"/>
+    <!--        android:src="@drawable/tshirt"/>-->
+
+    <TextView android:text="Black T-Shirt" android:layout_height="10px" android:layout_width="10px"/>
+    <TextView android:text="₱299" android:layout_height="10px" android:layout_width="10px"/>
+
+    <EditText
+        android:hint="Address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Spinner
+        android:id="@+id/paymentSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:text="Check Out"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
