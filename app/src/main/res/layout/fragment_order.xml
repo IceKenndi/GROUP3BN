@@ -1,29 +1,112 @@
-<?xml version="1.0" encoding="utf-8"?><LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="10dp"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp">
 
-    <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"/>
-    <!--        android:src="@drawable/tshirt"/>-->
-
-    <TextView android:text="Black T-Shirt" android:layout_height="10px" android:layout_width="10px"/>
-    <TextView android:text="₱299" android:layout_height="10px" android:layout_width="10px"/>
-
-    <EditText
-        android:hint="Address"
+    <LinearLayout
+        android:id="@+id/orderRootLayout"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:spacing="12dp">
 
-    <Spinner
-        android:id="@+id/paymentSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <!-- Order Summary -->
+        <TextView
+            android:id="@+id/tvOrderSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Order Summary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingBottom="8dp"/>
 
-    <Button
-        android:text="Check Out"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-</LinearLayout>
+        <!-- Total -->
+        <TextView
+            android:id="@+id/tvOrderTotal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Total: ₱0.00"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingBottom="16dp"/>
+
+        <!-- Delivery Address -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Delivery Address"
+            android:textStyle="bold"
+            android:paddingBottom="4dp"/>
+        <EditText
+            android:id="@+id/etAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter your address"
+            android:padding="8dp"
+            android:background="@drawable/rounded_edittext"/>
+
+        <!-- Shipping TOS -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Shipping Terms of Service"
+            android:textStyle="bold"
+            android:paddingTop="16dp"
+            android:paddingBottom="4dp"/>
+        <TextView
+            android:id="@+id/tvShippingTOS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="• Orders processed within 24 hours.\n• Delivery may take 3-7 business days.\n• Ensure your address is correct; we are not responsible for lost items."
+            android:textSize="14sp"/>
+
+        <!-- Payment Options -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Payment Method"
+            android:textStyle="bold"
+            android:paddingTop="16dp"
+            android:paddingBottom="4dp"/>
+        <Spinner
+            android:id="@+id/paymentSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- Container for dynamic inputs -->
+        <LinearLayout
+            android:id="@+id/dynamicInputContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:spacing="8dp"/>
+
+        <!-- Place Order Button -->
+        <Button
+            android:id="@+id/btnPlaceOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Place Order"
+            android:enabled="false"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/gray"
+            android:padding="12dp"
+            android:layout_marginTop="16dp"/>
+
+        <!-- Terms of Service -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Terms of Service"
+            android:textStyle="bold"
+            android:paddingTop="16dp"
+            android:paddingBottom="4dp"/>
+        <TextView
+            android:id="@+id/tvTOS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="• App is for educational purposes only.\n• By placing an order, you agree all info is accurate.\n• We are not liable for lost/damaged items after delivery.\n• Prices and availability may change without notice."
+            android:textSize="14sp"/>
+    </LinearLayout>
+</ScrollView>

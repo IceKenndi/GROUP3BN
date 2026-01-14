@@ -4,16 +4,18 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.badge.BadgeDrawable
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    val cartItems = mutableListOf<Product>()
-    private lateinit var bottomNav: BottomNavigationView
+    // Product -> Quantity
+    val cartItems = mutableMapOf<Product, Int>()
+
+    lateinit var bottomNav: BottomNavigationView
     private lateinit var cartBadge: BadgeDrawable
 
-    // Single Toast object to avoid multiple stacked toasts
+    // Single Toast (anti-spam)
     private var toast: Toast? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,13 +24,12 @@ class MainActivity : AppCompatActivity() {
 
         bottomNav = findViewById(R.id.bottom_navigation)
 
-        // Load home screen by default
+        // Load Home by default
         loadFragment(HomeFragment())
 
-        // Setup cart badge
+        // Setup badge
         cartBadge = bottomNav.getOrCreateBadge(R.id.nav_cart)
-        cartBadge.isVisible = cartItems.isNotEmpty()
-        cartBadge.number = cartItems.size
+        updateCartBadge()
 
         bottomNav.setOnItemSelectedListener {
             when (it.itemId) {
@@ -46,17 +47,34 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
-    // Adds product to cart with dynamic badge and single toast
+    // ✅ ADD TO CART (handles duplicates)
     fun addToCart(product: Product) {
-        cartItems.add(product)
+        val currentQty = cartItems[product] ?: 0
+        cartItems[product] = currentQty + 1
 
-        // Show a single toast, cancel previous if it exists
+        // Spam-safe toast
         toast?.cancel()
-        toast = Toast.makeText(this, "${product.name} added to cart.", Toast.LENGTH_SHORT)
+        toast = Toast.makeText(
+            this,
+            "${product.name} added to cart.",
+            Toast.LENGTH_SHORT
+        )
         toast?.show()
 
-        // Update badge dynamically
-        cartBadge.isVisible = cartItems.isNotEmpty()
-        cartBadge.number = cartItems.size
+        updateCartBadge()
+    }
+
+    // ✅ REMOVE PRODUCTS AFTER ORDER
+    fun removeFromCart(product: Product) {
+        cartItems.remove(product)
+        updateCartBadge()
+    }
+
+    // ✅ UPDATE BADGE COUNT
+    fun updateCartBadge() {
+        val totalItems = cartItems.values.sum()
+
+        cartBadge.isVisible = totalItems > 0
+        cartBadge.number = totalItems
     }
 }
